@@ -109,8 +109,6 @@ zhash_t *
 const char * zsys_interface ();
 ''')
 
-# os.environ['PATH'] = os.environ['PATH'] + os.path.abspath(os.path.dirname(__file__))
-
 zyre_lib = ffi.dlopen( os.path.abspath(os.path.join(os.path.dirname(__file__), 'zyre.dll')))
 czmq_lib = ffi.dlopen( os.path.abspath(os.path.join(os.path.dirname(__file__), 'czmq.dll')))
 
