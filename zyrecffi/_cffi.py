@@ -109,7 +109,9 @@ zhash_t *
 const char * zsys_interface ();
 ''')
 
-zyre_lib = ffi.dlopen( os.path.abspath(os.path.join(os.path.dirname(__file__), 'zyre.dll')))
-czmq_lib = ffi.dlopen( os.path.abspath(os.path.join(os.path.dirname(__file__), 'czmq.dll')))
+
+os.environ['PATH'] = os.environ['PATH'] + ';' + os.path.abspath(os.path.join(os.path.dirname(__file__)))
+zyre_lib = ffi.dlopen('zyre.dll')
+czmq_lib = ffi.dlopen('czmq.dll')
 
 new_int = lambda: ffi.new('int*')
