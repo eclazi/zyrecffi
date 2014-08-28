@@ -73,6 +73,9 @@ class ZyreEvent(object):
             if key.find('ZYRE_EVENT_') > -1 and value == int(event_type):
                 return key
 
+    def header(self, name):
+        z_header = zyre_lib.zyre_event_header(self._z_event, name)
+        return ffi.string(z_header) if z_header else None
 
 class ZyreNode(object):
     def __init__(self, name = '', verbose=False):
