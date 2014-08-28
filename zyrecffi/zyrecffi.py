@@ -133,6 +133,9 @@ class ZyreNode(object):
     def set_interval(self, value):
         zyre_lib.zyre_set_interval(self._z_node, value)
 
+    def set_endpoint(self, endpoint):
+        ret = zyre_lib.zyre_set_endpoint(self._z_node, endpoint)
+
     def start(self):
         if zyre_lib.zyre_start(self._z_node) == 1:
             raise ZyreNode('Failed to start beacon')
