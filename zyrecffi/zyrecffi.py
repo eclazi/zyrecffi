@@ -16,6 +16,14 @@ class ZyreException(Exception):
         return 'ZyreError: {}'.format(self._error)
 
 class ZyreEvent(object):
+
+    ZYRE_EVENT_ENTER    = zyre_lib.ZYRE_EVENT_ENTER
+    ZYRE_EVENT_JOIN     = zyre_lib.ZYRE_EVENT_JOIN
+    ZYRE_EVENT_LEAVE    = zyre_lib.ZYRE_EVENT_LEAVE
+    ZYRE_EVENT_EXIT     = zyre_lib.ZYRE_EVENT_EXIT
+    ZYRE_EVENT_WHISPER  = zyre_lib.ZYRE_EVENT_WHISPER
+    ZYRE_EVENT_SHOUT    = zyre_lib.ZYRE_EVENT_SHOUT
+
     def __init__(self, zyre_event_t):
         self._z_event = zyre_event_t
 
@@ -26,7 +34,11 @@ class ZyreEvent(object):
         return 'ZyreEvent({})'.format(self._z_event)
 
     def __str__(self):
-        return 'ZyreEvent: {} {} {} {}'.format(self.name, self.group, self.sender, self.address)
+        return 'ZyreEvent: {} {} {} {} {}'.format(self.type_string,
+                                                  self.name,
+                                                  self.group,
+                                                  self.sender,
+                                                  self.address)
 
     @property
     def sender(self):
@@ -47,6 +59,20 @@ class ZyreEvent(object):
     def group(self):
         z_group = zyre_lib.zyre_event_group(self._z_event)
         return ffi.string(z_group) if z_group else None
+
+    @property
+    def type(self):
+        return zyre_lib.zyre_event_type(self._z_event)
+
+    @property
+    def type_string(self):
+        return self._event_type_string(self.type)
+
+    def _event_type_string(self, event_type):
+        for key, value in self.__class__.__dict__.items():
+            if key.find('ZYRE_EVENT_') > -1 and value == int(event_type):
+                return key
+
 
 class ZyreNode(object):
     def __init__(self, name = '', verbose=False):
