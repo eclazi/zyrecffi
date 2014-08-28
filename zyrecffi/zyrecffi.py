@@ -86,7 +86,7 @@ class ZyreEvent(object):
         if (zmsg):
             return c_string_to_py(czmq_lib.zmsg_popstr(zmsg))
         return None
-    
+
 
 class ZyreNode(object):
     def __init__(self, name = '', verbose=False):
@@ -161,3 +161,8 @@ class ZyreNode(object):
         zyre_event = zyre_lib.zyre_event_new(self._z_node)
         return ZyreEvent(zyre_event)
 
+    def _zsock(self):
+        return zyre_lib.zyre_socket(self._z_node)
+
+    def socket_fd(self):
+        return czmq_lib.zsock_fd(self._zsock())

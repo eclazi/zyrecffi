@@ -107,6 +107,8 @@ zhash_t *
     zyre_event_headers (zyre_event_t *self);
 
 const char * zsys_interface ();
+
+int zsock_fd (zsock_t *self);
 ''')
 
 
