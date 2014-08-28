@@ -22,17 +22,21 @@ class ZyreEvent(object):
     def __del__(self):
         zyre_lib.zyre_event_destroy(ffi.new('zyre_event_t**', self._z_event))
 
+    @property
     def sender(self):
-        return zyre_lib.zyre_event_sender(self._z_event)
+        return ffi.string(zyre_lib.zyre_event_sender(self._z_event))
 
+    @property
     def name(self):
-        return zyre_lib.zyre_event_name(self._z_event)
+        return ffi.string(zyre_lib.zyre_event_name(self._z_event))
 
+    @property
     def address(self):
-        return zyre_lib.zyre_event_address(self._z_event)
+        return ffi.string(zyre_lib.zyre_event_address(self._z_event))
 
+    @property
     def group(self):
-        return zyre_lib.zyre_event_group(self._z_event)
+        return ffi.string(zyre_lib.zyre_event_group(self._z_event))
 
 class ZyreNode(object):
     def __init__(self, name = '', verbose=False):
