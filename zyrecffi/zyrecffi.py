@@ -152,6 +152,8 @@ class ZyreNode(object):
         zyre_lib.zyre_whispers(self._z_node, peer, msg_string)
 
     def shouts(self, group, msg_string):
+        if not isinstance(msg_string, str):
+            raise ZyreException('{} is not a string'.format(msg_string))
         zyre_lib.zyre_shouts(self._z_node, group, msg_string)
 
     def dump(self):
