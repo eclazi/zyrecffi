@@ -30,19 +30,23 @@ class ZyreEvent(object):
 
     @property
     def sender(self):
-        return ffi.string(zyre_lib.zyre_event_sender(self._z_event))
+        z_sender = zyre_lib.zyre_event_sender(self._z_event)
+        return ffi.string(z_sender) if z_sender else None
 
     @property
     def name(self):
-        return ffi.string(zyre_lib.zyre_event_name(self._z_event))
+        z_name = zyre_lib.zyre_event_name(self._z_event)
+        return ffi.string(z_name) if z_name else None
 
     @property
     def address(self):
-        return ffi.string(zyre_lib.zyre_event_address(self._z_event))
+        z_address = zyre_lib.zyre_event_address(self._z_event)
+        return ffi.string(z_address) if z_address else None
 
     @property
     def group(self):
-        return ffi.string(zyre_lib.zyre_event_group(self._z_event))
+        z_group = zyre_lib.zyre_event_group(self._z_event)
+        return ffi.string(z_group) if z_group else None
 
 class ZyreNode(object):
     def __init__(self, name = '', verbose=False):
