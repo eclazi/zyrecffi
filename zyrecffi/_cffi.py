@@ -116,3 +116,4 @@ czmq_lib = ffi.dlopen('czmq.dll')
 
 new_int = lambda: ffi.new('int*')
 c_string_to_py = lambda s: ffi.string(s) if s else None
+check_null = lambda val: val if val else None

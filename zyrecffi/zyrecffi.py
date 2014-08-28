@@ -77,6 +77,17 @@ class ZyreEvent(object):
         z_header = zyre_lib.zyre_event_header(self._z_event, name)
         return c_string_to_py(z_header)
 
+    def _zmsg(self):
+        return check_null(zyre_lib.zyre_event_msg(self._z_event))
+
+    @property
+    def msg_string(self):
+        zmsg = self._zmsg()
+        if (zmsg):
+            return c_string_to_py(czmq_lib.zmsg_popstr(zmsg))
+        return None
+    
+
 class ZyreNode(object):
     def __init__(self, name = '', verbose=False):
         self._z_node = zyre_lib.zyre_new(name)
