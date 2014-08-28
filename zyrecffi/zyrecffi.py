@@ -107,3 +107,7 @@ class ZyreNode(object):
     def dump(self):
         zyre_lib.zyre_dump(self._z_node)
 
+    def recv_event(self):
+        zyre_event = zyre_lib.zyre_event_new(self._z_node)
+        return ZyreEvent(zyre_event)
+
