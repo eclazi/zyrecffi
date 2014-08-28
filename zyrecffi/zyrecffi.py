@@ -43,22 +43,22 @@ class ZyreEvent(object):
     @property
     def sender(self):
         z_sender = zyre_lib.zyre_event_sender(self._z_event)
-        return ffi.string(z_sender) if z_sender else None
+        return c_string_to_py(z_sender)
 
     @property
     def name(self):
         z_name = zyre_lib.zyre_event_name(self._z_event)
-        return ffi.string(z_name) if z_name else None
+        return c_string_to_py(z_name)
 
     @property
     def address(self):
         z_address = zyre_lib.zyre_event_address(self._z_event)
-        return ffi.string(z_address) if z_address else None
+        return c_string_to_py(z_address)
 
     @property
     def group(self):
         z_group = zyre_lib.zyre_event_group(self._z_event)
-        return ffi.string(z_group) if z_group else None
+        return c_string_to_py(z_group)
 
     @property
     def type(self):
@@ -75,7 +75,7 @@ class ZyreEvent(object):
 
     def header(self, name):
         z_header = zyre_lib.zyre_event_header(self._z_event, name)
-        return ffi.string(z_header) if z_header else None
+        return c_string_to_py(z_header)
 
 class ZyreNode(object):
     def __init__(self, name = '', verbose=False):
