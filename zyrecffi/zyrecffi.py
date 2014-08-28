@@ -13,7 +13,7 @@ class ZyreException(Exception):
         return 'ZyreException("{}")'.format(self._error)
 
     def __str__(self):
-        return 'ZyreError: {}'.format(self._error)
+        return 'ZyreException: {}'.format(self._error)
 
 class ZyreEvent(object):
 
