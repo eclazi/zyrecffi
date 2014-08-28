@@ -22,6 +22,12 @@ class ZyreEvent(object):
     def __del__(self):
         zyre_lib.zyre_event_destroy(ffi.new('zyre_event_t**', self._z_event))
 
+    def __repr__(self):
+        return 'ZyreEvent({})'.format(self._z_event)
+
+    def __str__(self):
+        return 'ZyreEvent: {} {} {} {}'.format(self.name, self.group, self.sender, self.address)
+
     @property
     def sender(self):
         return ffi.string(zyre_lib.zyre_event_sender(self._z_event))
