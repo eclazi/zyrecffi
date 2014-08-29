@@ -79,32 +79,19 @@ void zyre_event_destroy (zyre_event_t **self_p);
 
 zyre_event_type_t zyre_event_type (zyre_event_t *self);
 
-char *
-    zyre_event_sender (zyre_event_t *self);
+char * zyre_event_sender (zyre_event_t *self);
 
-//  Return the sending peer's public name as a string
- char *
-    zyre_event_name (zyre_event_t *self);
+char * zyre_event_name (zyre_event_t *self);
 
-//  Return the sending peer's ipaddress as a string
- char *
-    zyre_event_address (zyre_event_t *self);
+char * zyre_event_address (zyre_event_t *self);
 
-//  Returns value of a header from the message headers
-//  obtained by ENTER. Return NULL if no value was found.
- char *
-    zyre_event_header (zyre_event_t *self, char *name);
+char * zyre_event_header (zyre_event_t *self, char *name);
 
-//  Returns the group name that a SHOUT event was sent to
- char *
-    zyre_event_group (zyre_event_t *self);
+char * zyre_event_group (zyre_event_t *self);
 
-//  Returns the incoming message payload (currently one frame)
- zmsg_t *
-    zyre_event_msg (zyre_event_t *self);
+zmsg_t * zyre_event_msg (zyre_event_t *self);
 
-zhash_t *
-    zyre_event_headers (zyre_event_t *self);
+zhash_t * zyre_event_headers (zyre_event_t *self);
 
 const char * zsys_interface ();
 
