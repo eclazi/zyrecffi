@@ -114,6 +114,16 @@ const char * zsys_interface ();
 // zsock_option.h
 
 int zsock_fd (zsock_t *self);
+
+// zpoller.h
+
+typedef struct _zpoller_t zpoller_t;
+
+zpoller_t * zpoller_new (void *reader, ...);
+
+void zpoller_destroy (zpoller_t **self_p);
+
+void * zpoller_wait (zpoller_t *self, int timeout);
 ''')
 
 

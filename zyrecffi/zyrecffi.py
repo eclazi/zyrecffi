@@ -160,9 +160,17 @@ class ZyreNode(object):
     def dump(self):
         zyre_lib.zyre_dump(self._z_node)
 
-    def recv_event(self):
-        zyre_event = zyre_lib.zyre_event_new(self._z_node)
-        return ZyreEvent(zyre_event)
+    def recv_event(self, timeout=-1):
+        if self.poll(timeout):
+            zyre_event = zyre_lib.zyre_event_new(self._z_node)
+            return ZyreEvent(zyre_event)
+        return None
+
+    def poll(self, timeout=-1):
+        zsock = self._zsock()
+        zpoller = czmq_lib.zpoller_new(zsock, ffi.NULL)
+        which = czmq_lib.zpoller_wait(zpoller, timeout)
+        return which == zsock
 
     def _zsock(self):
         return zyre_lib.zyre_socket(self._z_node)
