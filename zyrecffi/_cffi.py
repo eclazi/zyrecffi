@@ -3,13 +3,22 @@ import os
 ffi = FFI()
 
 ffi.cdef('''
-typedef struct _zmsg_t zmsg_t;
+
+// zsock.h
+
 typedef struct _zsock_t zsock_t;
-typedef struct _zyre_t zyre_t;
+
+// zmsg.h
+
+typedef struct _zmsg_t zmsg_t;
 
 int zmsg_addstr (zmsg_t* self, const char* string);
 
 char* zmsg_popstr (zmsg_t* self);
+
+// zyre.h
+
+typedef struct _zyre_t zyre_t;
 
 zyre_t* zyre_new (const char *name);
 
@@ -61,8 +70,13 @@ void zyre_version (int *major, int *minor, int *patch);
 
 void zyre_test (bool verbose);
 
-typedef struct _zyre_event_t zyre_event_t;
+// zhash.h
+
 typedef struct _zhash_t zhash_t;
+
+// zyre_event.h
+
+typedef struct _zyre_event_t zyre_event_t;
 
 typedef enum {
     ZYRE_EVENT_ENTER = 1,
@@ -93,7 +107,11 @@ zmsg_t * zyre_event_msg (zyre_event_t *self);
 
 zhash_t * zyre_event_headers (zyre_event_t *self);
 
+// zsys.h
+
 const char * zsys_interface ();
+
+// zsock_option.h
 
 int zsock_fd (zsock_t *self);
 ''')
