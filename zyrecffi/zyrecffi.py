@@ -187,10 +187,9 @@ class ZyreNode(object):
         return None
 
     def poll(self, timeout=-1):
-        zsock = self._zsock()
-        zpoller = czmq_lib.zpoller_new(zsock, ffi.NULL)
-        which = czmq_lib.zpoller_wait(zpoller, timeout)
-        return which == zsock
+        poller = ZPoller()
+        poller.add(self)
+        return poller.poll(timeout)
 
     def _zsock(self):
         return zyre_lib.zyre_socket(self._z_node)
