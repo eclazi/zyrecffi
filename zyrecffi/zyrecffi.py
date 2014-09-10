@@ -88,6 +88,26 @@ class ZyreEvent(object):
         return None
 
 
+class ZPoller(object):
+    def __init__(self):
+        self._z_poller = czmq_lib.zpoller_new(ffi.NULL)
+        self._socks = dict()
+
+    def __del__(self):
+        czmq_lib.zpoller_destroy(ffi.new('zpoller_t**',self._z_poller))
+
+    def add(self, node):
+        sock = node._zsock()
+        ret = czmq_lib.zpoller_add(self._z_poller, sock)
+        if ret != 0:
+            raise ZyreException('Failed to add node to poller')
+        self._socks[sock] = node
+
+    def poll(self, timeout=-1):
+        which = czmq_lib.zpoller_wait(self._z_poller, timeout)
+        return self._socks[which]
+
+
 class ZyreNode(object):
     def __init__(self, name = '', verbose=False):
         self._z_node = zyre_lib.zyre_new(name)

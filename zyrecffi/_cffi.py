@@ -124,6 +124,8 @@ zpoller_t * zpoller_new (void *reader, ...);
 void zpoller_destroy (zpoller_t **self_p);
 
 void * zpoller_wait (zpoller_t *self, int timeout);
+
+int zpoller_add (zpoller_t *self, void *reader);
 ''')
 
 
