@@ -1,5 +1,5 @@
 from cffi import FFI
-import os
+import os, sys
 ffi = FFI()
 
 ffi.cdef('''
@@ -128,8 +128,13 @@ void * zpoller_wait (zpoller_t *self, int timeout);
 
 
 os.environ['PATH'] = os.environ['PATH'] + ';' + os.path.abspath(os.path.join(os.path.dirname(__file__)))
-zyre_lib = ffi.dlopen('zyre.dll')
-czmq_lib = ffi.dlopen('czmq.dll')
+
+_zyre_lib_name, _czmq_lib_name = 'zyre', 'czmq'
+if sys.platform == 'win32':
+    _zyre_lib_name, _czmq_lib_name = 'zyre.dll', 'czmq.dll'
+
+zyre_lib = ffi.dlopen(_zyre_lib_name)
+czmq_lib = ffi.dlopen(_czmq_lib_name)
 
 new_int = lambda: ffi.new('int*')
 c_string_to_py = lambda s: ffi.string(s) if s else None
