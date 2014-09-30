@@ -1,7 +1,7 @@
 from _cffi import *
 
 def zyre_version():
-    major, minor, patch  = new_int(), new_int(), new_int()
+    major, minor, patch  = new_int_ptr(0), new_int_ptr(0), new_int_ptr(0)
     zyre_lib.zyre_version(major, minor, patch)
     return (major[0], minor[0], patch[0])
 
