@@ -98,14 +98,23 @@ class ZPoller(object):
 
     def add(self, node):
         sock = node._zsock()
-        ret = czmq_lib.zpoller_add(self._z_poller, sock)
+        self.add(sock)
+        self._socks[sock] = node
+
+    def add_fd(self, fd):
+        int_ptr = new_int_ptr(fd)
+        void_ptr = ffi.cast('void*', int_ptr)
+        self._add_to_poller(void_ptr)
+        self._socks[void_ptr] = fd
+
+    def _add_to_poller(self, item):
+        ret = czmq_lib.zpoller_add(self._z_poller, item)
         if ret != 0:
             raise ZyreException('Failed to add node to poller')
-        self._socks[sock] = node
 
     def poll(self, timeout=-1):
         which = czmq_lib.zpoller_wait(self._z_poller, timeout)
-        return self._socks[which]
+        return self._socks.get(which)
 
 
 class ZyreNode(object):
