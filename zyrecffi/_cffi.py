@@ -133,6 +133,7 @@ os.environ['PATH'] = os.environ['PATH'] + ';' + os.path.abspath(os.path.join(os.
 zyre_lib = ffi.dlopen('zyre.dll')
 czmq_lib = ffi.dlopen('czmq.dll')
 
-new_int = lambda: ffi.new('int*')
+new_int_ptr = lambda val: ffi.new('int*', val)
+new_void_ptr = lambda val: ffi.new('void*', val)
 c_string_to_py = lambda s: ffi.string(s) if s else None
 check_null = lambda val: val if val else None
